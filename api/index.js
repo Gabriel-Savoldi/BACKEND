@@ -30,6 +30,10 @@ app.use(cors({
 
 //app utilize a pasta 'publico' para disponibilizar o conteúdo ali armazenado
 
+app.get("/", (req, res) => {
+    res.send("API funcionando corretamente!");
+});
+
 
 app.use("/produto",rotaProduto);
 app.use("/categoria",rotaCategoria);
