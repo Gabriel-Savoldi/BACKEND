@@ -38,28 +38,12 @@ app.use("/categoria",rotaCategoria);
 //app.use('/fornecedores', rotaFornecedor);
 //app.use('/usuarios', rotaUsuario);
 
-/*app.get('/',(requisicao, resposta)=>{
-    resposta.send('<h1>Página principal</h1>');
-    resposta.end();
-})
 
-app.get('/dinheiro', (requisicao, resposta) => {
-    resposta.send('<p>Toma aqui seus cinquenta reais</p>');
-    resposta.end();
-})
-
-//disponibilize a tabuada do 7 no endpoint /tabuada7
-app.get('/tabuada',(requisicao, resposta)=>{
-    let cont = 0;
-    const ate = requisicao.query.ate;
-    const numero = requisicao.query.numero;
-    while (cont < ate){
-        resposta.write(`<p>${numero} x ${cont} = ${numero * cont}</p>`);
-        cont++;
-    }
-    resposta.end();
+//Funciona para servidor local não para Vercel
+/*app.listen(porta, host, () => {
+    console.log(`Servidor escutando em http://${host}:${porta}`)
 });*/
 
-app.listen(porta, host, () => {
-    console.log(`Servidor escutando em http://${host}:${porta}`)
-});
+
+
+export default app;
