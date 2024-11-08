@@ -29,7 +29,6 @@ app.use(cors({
         }));
 
 //app utilize a pasta 'publico' para disponibilizar o conteúdo ali armazenado
-app.use(express.static('./publico'));
 
 
 app.use("/produto",rotaProduto);
