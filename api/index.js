@@ -43,15 +43,15 @@ app.use("/categoria",rotaCategoria);
 
 
 //Funciona para servidor local não para Vercel
+
+
 /*
-
-
 app.listen(porta, host, () => {
     console.log(`Servidor escutando em http://${host}:${porta}`)
 });
 
-
 */
+
 
 
 

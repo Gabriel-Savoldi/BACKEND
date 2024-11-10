@@ -12,16 +12,16 @@
     "http",
     "node",
     "fipp",
-    "lp1",
-    "querido",
+    "lp2",
     "aluno"
   ],
-  "author": "Renato",
+  "author": "Gabriel-Savoldi",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "mysql2": "^3.9.7"
+    "mysql2": "^3.11.4",
+    "servidor": "file:"
   }
 }
