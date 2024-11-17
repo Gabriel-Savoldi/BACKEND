@@ -17,9 +17,7 @@ export default class ProdutoCtrl {
             const dataValidade = requisicao.body.dataValidade;
             const categoria = requisicao.body.categoria;
             const categ = new Categoria(categoria.codigo);
-            const listaCategorias = [];
-
-
+            let listaCategorias = [];
             listaCategorias = categ.consultar(categoria.codigo).then((listaCategorias) => {
                 if (listaCategorias.length > 0) {
                     //pseudo validação
