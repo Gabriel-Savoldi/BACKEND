@@ -15,7 +15,7 @@ export default class ProdutoCtrl {
             const qtdEstoque = requisicao.body.qtdEstoque;
             const urlImagem = requisicao.body.urlImagem;
             const dataValidade = requisicao.body.dataValidade;
-            const categoria = requisicao.body.categoria.codigo;
+            const categoria = requisicao.body.categoria;
             const categ = new Categoria(categoria.codigo);
             categ.consultar(categoria.codigo).then((listaCategorias) => {
                 if (listaCategorias.length > 0) {
