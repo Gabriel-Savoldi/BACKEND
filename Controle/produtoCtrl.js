@@ -16,6 +16,7 @@ export default class ProdutoCtrl {
             const urlImagem = requisicao.body.urlImagem;
             const dataValidade = requisicao.body.dataValidade;
             const categoria = requisicao.body.categoria;
+            console.log(categoria.codigo);
             const categ = new Categoria(categoria.codigo);
             let listaCategorias = [];
             listaCategorias = categ.consultar(categoria.codigo).then((listaCategorias) => {
