@@ -49,7 +49,7 @@ export default class ProdutoCtrl {
                         resposta.status(400).json(
                             {
                                 "status": false,
-                                "mensagem": "Informe corretamente todos os dados de um produto conforme documentação da API."
+                                "mensagem": "Informe corretamente todos os dados de um produto conforme documentação da API. " + categoria.codigo
                             }
                         );
                     }
