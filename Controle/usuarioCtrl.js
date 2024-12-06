@@ -1,6 +1,6 @@
 //É a classe responsável por traduzir requisições HTTP e produzir respostas HTTP
 import Usuario from "../Modelo/usuario.js";
-import Privilegio from "../Modelo/privilegio.js";
+
 
 export default class UsuarioCtrl {
 

@@ -14,6 +14,7 @@ rotaUsuario.delete("/:codigo", prodCtrl.excluir);
 rotaUsuario.get("/:codigo", prodCtrl.consultar);
 rotaUsuario.get("/",prodCtrl.consultar);
 
+
 export default rotaUsuario;
 
 

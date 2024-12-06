@@ -1,5 +1,5 @@
 import UsuarioDAO from "../Persistencia/usuarioDAO.js";
-import Privilegio from "./privilegio.js";
+
 
 
 export default class Usuario {
