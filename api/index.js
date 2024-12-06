@@ -37,9 +37,9 @@ app.get("/", (req, res) => {
 
 app.use("/produto",rotaProduto);
 app.use("/categoria",rotaCategoria);
-//app.use('/clientes',rotaCliente);
-//app.use('/fornecedores', rotaFornecedor);
-//app.use('/usuarios', rotaUsuario);
+app.use('/cliente',rotaCliente);
+app.use('/fornecedor', rotaFornecedor);
+app.use('/usuario', rotaUsuario);
 
 
 //Funciona para servidor local não para Vercel
