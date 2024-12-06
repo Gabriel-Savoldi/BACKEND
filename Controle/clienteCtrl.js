@@ -10,9 +10,6 @@ export default class ClienteCtrl {
         if (requisicao.method == 'POST' && requisicao.is("application/json")) {
             const nome = requisicao.body.nome;
             const endereco = requisicao.body.endereco;
-            const telefone = requisicao.body.telefone;
-            const email = requisicao.body.email;
-
             if (nome && endereco  ) {
                 //gravar o cliente
 
