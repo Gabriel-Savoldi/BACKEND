@@ -10,6 +10,9 @@ import rotaProduto from '../Rotas/rotaProdutos.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import rotaCategoria from '../Rotas/rotaCategoria.js';
+import rotaCliente from '../Rotas/rotaClientes.js';
+import rotafornecedor from '../Rotas/rotaFornecedores.js';
+import rotaUsuario from '../Rotas/rotaUsuarios.js';
 
 //carregar as variáveis de ambiente a partir
 //do arquivo .env localizado na raiz do projeto
@@ -38,7 +41,7 @@ app.get("/", (req, res) => {
 app.use("/produto",rotaProduto);
 app.use("/categoria",rotaCategoria);
 app.use('/cliente',rotaCliente);
-app.use('/fornecedor', rotaFornecedor);
+app.use('/fornecedor',rotafornecedor);
 app.use('/usuario', rotaUsuario);
 
 
