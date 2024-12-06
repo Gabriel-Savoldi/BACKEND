@@ -1,37 +1,36 @@
 import CategoriaDAO from "../Persistencia/categoriaDAO.js";
 
 export default class Categoria {
-    // Atributos privados usando a sintaxe #
+   
     #codigo;
     #descricao;
 
-    // Construtor da classe
-    constructor(codigo=0, descricao="") {
-        this.#codigo = codigo;       // Atribuindo valor ao atributo privado
-        this.#descricao = descricao;  // Atribuindo valor ao atributo privado
+    
+    constructor(codigo, descricao) {
+        this.#codigo = codigo;       
+        this.#descricao = descricao;  
     }
 
-    // Método get para o atributo codigo
     get codigo() {
         return this.#codigo;
     }
 
-    // Método set para o atributo codigo
+    
     set codigo(value) {
         this.#codigo = value;
     }
 
-    // Método get para o atributo descricao
+    
     get descricao() {
         return this.#descricao;
     }
 
-    // Método set para o atributo descricao
+    
     set descricao(value) {
         this.#descricao = value;
     }
 
-    // Método toJSON para conversão em JSON
+    
     toJSON() {
         return {
             codigo: this.#codigo,

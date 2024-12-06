@@ -1,52 +1,52 @@
 //É a classe responsável por traduzir requisições HTTP e produzir respostas HTTP
-import Produto from "../Modelo/produto.js";
-import Categoria from "../Modelo/categoria.js";
+import Usuario from "../Modelo/usuario.js";
+import Privilegio from "../Modelo/privilegio.js";
 
-export default class ProdutoCtrl {
+export default class UsuarioCtrl {
 
     gravar(requisicao, resposta) {
-        //preparar o destinatário que a resposta estará no formato JSON
+        
         resposta.type("application/json");
-        //Verificando se o método da requisição é POST e conteúdo é JSON
+
         if (requisicao.method == 'POST' && requisicao.is("application/json")) {
-            const descricao = requisicao.body.descricao;
-            const precoCusto = requisicao.body.precoCusto;
-            const precoVenda = requisicao.body.precoVenda;
-            const qtdEstoque = requisicao.body.qtdEstoque;
-            const urlImagem = requisicao.body.urlImagem;
-            const dataValidade = requisicao.body.dataValidade;
-            const categoria = requisicao.body.categoria || {};
-            if (!categoria || !categoria.codigo) {
+            const email = requisicao.body.email;
+            const senha = requisicao.body.senha;
+            const nome = requisicao.body.nome;
+            const telefone = requisicao.body.telefone;
+            const endereco = requisicao.body.endereco;
+            const privilegios = requisicao.body.privilegios || {};
+            if (!privilegios || !privilegios.codigo) {
                 return resposta.status(400).json({
                     "status": false,
-                    "mensagem": "Categoria não informado ou inválido."
+                    "mensagem": "Privilegio não informado ou inválido."
                 });
             }
-            const categ = new Categoria(categoria.codigo);
-            categ.consultar(categoria.codigo).then((listaCategorias) => {
-                if (listaCategorias.length > 0) {
+
+            const priv = new Privilegio(privilegios.codigo);
+            priv.consultar(privilegios.codigo).then((listaPrivilegios) => {
+                if (listaPrivilegios.length > 0) {
                     //pseudo validação
-                    if (descricao && precoCusto > 0 &&
-                        precoVenda > 0 && qtdEstoque >= 0 &&
-                        urlImagem && dataValidade && categoria.codigo > 0) {
-                        //gravar o produto
+                    if (email && senha &&
+                        nome && telefone &&
+                        endereco && privilegios.codigo > 0) {
+                        //gravar o usuario
 
-                        const produto = new Produto(0,
-                            descricao, precoCusto, precoVenda,
-                            qtdEstoque, urlImagem, dataValidade, categ);
+                        const usuario = new Usuario(0,
+                            email, senha, nome,
+                            telefone, endereco, priv);
 
-                        produto.incluir()
+                        usuario.incluir()
                             .then(() => {
                                 resposta.status(200).json({
                                     "status": true,
-                                    "mensagem": "Produto adicionado com sucesso!",
-                                    "codigo": produto.codigo
+                                    "mensagem": "Usuario adicionado com sucesso!",
+                                    "codigo": usuario.codigo
                                 });
                             })
                             .catch((erro) => {
                                 resposta.status(500).json({
                                     "status": false,
-                                    "mensagem": "Não foi possível incluir o produto: " + erro.message
+                                    "mensagem": "Não foi possível incluir o usuario: " + erro.message
                                 });
                             });
                     }
@@ -54,7 +54,7 @@ export default class ProdutoCtrl {
                         resposta.status(400).json(
                             {
                                 "status": false,
-                                "mensagem": "Informe corretamente todos os dados de um produto conforme documentação da API."
+                                "mensagem": "Informe corretamente todos os dados de um usuario conforme documentação da API."
                             }
                         );
                     }
@@ -62,13 +62,13 @@ export default class ProdutoCtrl {
                 else {
                     resposta.status(400).json({
                         "status": false,
-                        "mensagem": "A categoria informada não existe!"
+                        "mensagem": "A privilegios informada não existe!"
                     });
                 }
             }).catch((erro) => {
                 resposta.status(500).json({
                     "status": false,
-                    "mensagem": "Não foi possível validar a categoria: " + erro.message
+                    "mensagem": "Não foi possível validar a privilegios: " + erro.message
                 });
             });
         }
@@ -85,40 +85,39 @@ export default class ProdutoCtrl {
     editar(requisicao, resposta) {
         
         resposta.type("application/json");
-      
+       
         if ((requisicao.method == 'PUT' || requisicao.method == 'PATCH') && requisicao.is("application/json")) {
-           
+            
             const codigo = requisicao.params.codigo;
-            const descricao = requisicao.body.descricao;
-            const precoCusto = requisicao.body.precoCusto;
-            const precoVenda = requisicao.body.precoVenda;
-            const qtdEstoque = requisicao.body.qtdEstoque;
-            const urlImagem = requisicao.body.urlImagem;
-            const dataValidade = requisicao.body.dataValidade;
-            const categoria = requisicao.body.categoria;
+            const email = requisicao.body.email;
+            const senha = requisicao.body.senha;
+            const nome = requisicao.body.nome;
+            const telefone = requisicao.body.telefone;
+            const endereco = requisicao.body.endereco;
+            const privilegios = requisicao.body.privilegios;
            
-            const categ = new Categoria(categoria.codigo);
-            categ.consultar(categoria.codigo).then((lista) => {
+            const priv = new Privilegio(privilegios.codigo);
+            priv.consultar(privilegios.codigo).then((lista) => {
                 if (lista.length > 0) {
                     //pseudo validação
-                    if (codigo > 0 && descricao && precoCusto > 0 &&
-                        precoVenda > 0 && qtdEstoque >= 0 &&
-                        urlImagem && dataValidade && categoria.codigo > 0) {
-                        //alterar o produto
-                        const produto = new Produto(codigo,
-                            descricao, precoCusto, precoVenda,
-                            qtdEstoque, urlImagem, dataValidade, categ);
-                        produto.alterar()
+                    if (codigo > 0 && email && senha &&
+                        nome && telefone &&
+                        endereco && privilegios.codigo > 0) {
+                        //alterar o usuario
+                        const usuario = new Usuario(codigo,
+                            email, senha, nome,
+                            telefone, endereco, priv);
+                        usuario.alterar()
                             .then(() => {
                                 resposta.status(200).json({
                                     "status": true,
-                                    "mensagem": "Produto alterado com sucesso!",
+                                    "mensagem": "Usuario alterado com sucesso!",
                                 });
                             })
                             .catch((erro) => {
                                 resposta.status(500).json({
                                     "status": false,
-                                    "mensagem": "Não foi possível alterar o produto: " + erro.message
+                                    "mensagem": "Não foi possível alterar o usuario: " + erro.message
                                 });
                             });
                     }
@@ -126,7 +125,7 @@ export default class ProdutoCtrl {
                         resposta.status(400).json(
                             {
                                 "status": false,
-                                "mensagem": "Informe corretamente todos os dados de um produto conforme documentação da API."
+                                "mensagem": "Informe corretamente todos os dados de um usuario conforme documentação da API."
                             }
                         );
                     }
@@ -135,14 +134,14 @@ export default class ProdutoCtrl {
                 else {
                     resposta.status(400).json({
                         "status": false,
-                        "mensagem": "A categoria informada não existe!"
+                        "mensagem": "A privilegios informada não existe!"
                     });
                 }
 
             }).catch((erro) => {
                 resposta.status(500).json({
                     "status": false,
-                    "mensagem": "Não foi possível validar a categoria: " + erro.message
+                    "mensagem": "Não foi possível validar a privilegios: " + erro.message
                 });
             });
 
@@ -163,21 +162,21 @@ export default class ProdutoCtrl {
         if (requisicao.method == 'DELETE') {
             
             const codigo = requisicao.params.codigo;
-         
+            //pseudo validação
             if (codigo > 0) {
-                //alterar o produto
-                const produto = new Produto(codigo);
-                produto.excluir()
+                //alterar o usuario
+                const usuario = new Usuario(codigo);
+                usuario.excluir()
                     .then(() => {
                         resposta.status(200).json({
                             "status": true,
-                            "mensagem": "Produto excluído com sucesso!",
+                            "mensagem": "Usuario excluído com sucesso!",
                         });
                     })
                     .catch((erro) => {
                         resposta.status(500).json({
                             "status": false,
-                            "mensagem": "Não foi possível excluir o produto: " + erro.message
+                            "mensagem": "Não foi possível excluir o usuario: " + erro.message
                         });
                     });
             }
@@ -185,7 +184,7 @@ export default class ProdutoCtrl {
                 resposta.status(400).json(
                     {
                         "status": false,
-                        "mensagem": "Informe um código válido de um produto conforme documentação da API."
+                        "mensagem": "Informe um código válido de um usuario conforme documentação da API."
                     }
                 );
             }
@@ -199,28 +198,29 @@ export default class ProdutoCtrl {
 
         }
     }
-
+    
     consultar(requisicao, resposta) {
         resposta.type("application/json");
         if (requisicao.method == "GET") {
             let codigo = requisicao.params.codigo;
+           
             if (isNaN(codigo)) {
                 codigo = "";
             }
 
-            const produto = new Produto();
-            //método consultar retorna uma lista de produtos
-            produto.consultar(codigo)
-                .then((listaProdutos) => {
-                    resposta.status(200).json(listaProdutos
-                       
+            const usuario = new Usuario();
+            //método consultar retorna uma lista de usuarios
+            usuario.consultar(codigo)
+                .then((listaUsuarios) => {
+                    resposta.status(200).json(listaUsuarios
+                        
                     );
                 })
                 .catch((erro) => {
                     resposta.status(500).json(
                         {
                             "status": false,
-                            "mensagem": "Erro ao consultar produtos: " + erro.message
+                            "mensagem": "Erro ao consultar usuarios: " + erro.message
                         }
                     );
                 });

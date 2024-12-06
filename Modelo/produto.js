@@ -1,7 +1,7 @@
 import ProdutoDAO from "../Persistencia/produtoDAO.js";
 import Categoria from "./categoria.js";
 export default class Produto{
-    //atributos privados
+    
     #codigo;
     #descricao;
     #precoCusto;
@@ -9,7 +9,7 @@ export default class Produto{
     #qtdEstoque;
     #urlImagem;
     #dataValidade;
-    #categoria
+    #categoria;
 
     get codigo(){
         return this.#codigo;
@@ -77,7 +77,7 @@ export default class Produto{
         }
     }
 
-    //construtor (criador de um produto)
+    
     constructor(codigo=0, descricao="",precoCusto=0,precoVenda=0,qtdEstoque=0,
                 urlImagem="", dataValidade="", categoria={}){
         this.#codigo=codigo;
@@ -90,9 +90,7 @@ export default class Produto{
         this.#categoria = categoria;
     }
 
-    //override do método toJSON
-    //o método toJSON é chamado automaticamente quando um produto
-    //precisar ser convertido no formato JSON
+   
     toJSON(){
         return {
             "codigo":this.#codigo,
@@ -102,14 +100,14 @@ export default class Produto{
             "qtdEstoque":this.#qtdEstoque,
             "urlImagem":this.#urlImagem,
             "dataValidade":this.#dataValidade,
-            "categoria":this.#categoria
+            "categoria":this.#categoria.toJSON()
         }
     }
 
     async incluir(){
-        //instanciar a camada de persistencia do produto
+        
         const prodDAO = new ProdutoDAO();
-        await prodDAO.incluir(this); //this referência a si mesmo
+        await prodDAO.incluir(this); 
     }
 
     async consultar(termo){
@@ -127,4 +125,3 @@ export default class Produto{
         await prodDAO.alterar(this);
     }
 }
-
